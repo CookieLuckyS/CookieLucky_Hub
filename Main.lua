@@ -61,7 +61,6 @@ do
         Rounding = 1
     })
 
-
     local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
         Title = "Dropdown",
         Values = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen"},
@@ -159,10 +158,50 @@ do
         end
     end)
 
+    -- 🔽 Слайдеры WalkSpeed и JumpPower 🔽
+
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    local WalkSpeedSlider = Tabs.Main:AddSlider("WalkSpeedSlider", {
+        Title = "Скорость персонажа",
+        Description = "Изменяет WalkSpeed персонажа",
+        Min = 8,
+        Max = 100,
+        Default = 16,
+        Rounding = 0
+    })
+
+    WalkSpeedSlider:OnChanged(function(Value)
+        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = Value
+            print("WalkSpeed изменён на", Value)
+        end
+    end)
+
+    local JumpPowerSlider = Tabs.Main:AddSlider("JumpPowerSlider", {
+        Title = "Сила прыжка",
+        Description = "Изменяет JumpPower персонажа",
+        Min = 10,
+        Max = 200,
+        Default = 50,
+        Rounding = 0
+    })
+
+    JumpPowerSlider:OnChanged(function(Value)
+        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.JumpPower = Value
+            print("JumpPower изменён на", Value)
+        end
+    end)
+
 end
 
 do
-
     local InterfaceSection = Tabs.Settings:AddSection("Interface")
 
     InterfaceSection:AddDropdown("InterfaceTheme", {
